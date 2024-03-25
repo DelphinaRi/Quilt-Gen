@@ -42,7 +42,7 @@ void userInput(){
         }else if(userIn ==2){
             break;
         }else{
-            cout<< "wrong input try again\n"; 
+            cout<< "\nwrong input try again\n"; 
             continue;
         }
         
