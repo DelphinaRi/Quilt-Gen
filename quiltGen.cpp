@@ -1,52 +1,69 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include "ColorSquares.h"
 
+using namespace std;
+// main map of all the stuff
+map<string, int> colors;
 
-using namespace std; 
-//main map of all the stuff 
- map<string, int> colors;
-
-
-//fucntions u know how it be 
+// fucntions u know how it be
 void userInput();
+void testSquares();
 
-int main(){
-    cout<< "weclome to the quilt generator" << "\n"; 
-    //get user input 
-    userInput(); 
+int main()
+{
+    cout << "weclome to the quilt generator"
+         << "\n";
+    // get user input
+    // userInput();
+    testSquares(); 
 
-
-    return 0; 
+    return 0;
 }
 
-void userInput(){
-    //gets user inputs of amount of squares and colors 
-    int userIn;
-    string color; 
-    int numOfSquares; 
-    while(1==1){
-        cout<< "what do you want to do \n1: Add a type of squares \n2: Generate the quilt Pattern\n" ;
-        cin>> userIn;
-        cout << userIn;
-        if(userIn == 1){
-            cout<< "input the color\n"; 
-            cin>> color;
-            cout <<"input the number of boxes in that color\n";
-            cin >> numOfSquares;
-            colors[color] = numOfSquares; 
-            cout << color << " " << numOfSquares << "\n"; 
+// void userInput()
+// {
+//     // gets user inputs of amount of squares and colors
+//     int userIn;
+//     string color;
+//     int numOfSquares;
+//     while (1 == 1)
+//     {
+//         cout << "what do you want to do \n1: Add a type of squares \n2: Generate the quilt Pattern\n";
+//         cin >> userIn;
+//         cout << userIn;
+//         if (userIn == 1)
+//         {
+//             cout << "input the color\n";
+//             cin >> color;
+//             cout << "input the number of boxes in that color\n";
+//             cin >> numOfSquares;
+//             colors[color] = numOfSquares;
+//             cout << color << " " << numOfSquares << "\n";
 
+//             // colors
+//         }
+//         else if (userIn == 2)
+//         {
+//             break;
+//         }
+//         else
+//         {
+//             cout << "\nwrong input try again\n";
+//             continue;
+//         }
+//     }
+// }
 
-            // colors
-        }else if(userIn ==2){
-            break;
-        }else{
-            cout<< "\nwrong input try again\n"; 
-            continue;
-        }
-        
+void testSquares()
+{
+    ColorSquares c;
+    c.setNumSquares(10);
+    c.setColor("blue");
 
-    }
-
+    cout << c.getColor() << "  " << c.getNumeSquares() << "\n";
+    c.subNumSquares(5);
+    cout << c.getColor() << "  " << c.getNumeSquares() << "\n";
+    
 }
