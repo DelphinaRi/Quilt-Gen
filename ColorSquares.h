@@ -3,9 +3,9 @@ using namespace std;
 
 class ColorSquares{
 public:
-    ColorSquares(){
-        numSquares = 0; 
-        SqColor = "null"; 
+    ColorSquares(int numSq, string col){
+        numSquares = numSq; 
+        SqColor = col; 
     }
     int getNumeSquares(){
         return numSquares;
