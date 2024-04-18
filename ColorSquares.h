@@ -1,3 +1,5 @@
+#ifndef STACK_COLORSQUARES_H
+#define STACK_COLORSQUARES_H
 #include <iostream>
 using namespace std;
 
@@ -30,3 +32,5 @@ private:
     int numSquares; 
     string SqColor; 
 };
+
+#endif

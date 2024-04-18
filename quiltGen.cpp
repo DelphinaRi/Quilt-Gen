@@ -2,41 +2,51 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include <bits/stdc++.h>
 
 #include "ColorSquares.h"
+#include "quiltTop.h"
+#include "quiltTop.cpp"
+#include "Patterns.h"
 
-using namespace std;
-
-
-// main map of all the stuff
+// holds all the colors2
 vector<ColorSquares> colors;
+// holds all the pattern objects
+vector<Patterns> patterns;
 
 // fucntions u know how it be
+// just makes the user input
 void userInput();
+// just a little test thing for me
 void testSquares();
+// how the size of the quilt gets decided
 void getSize();
+// exactly what it says on the tin
 void presetSquaresCauseImlaze();
+
+void readInPatters();
 
 void printColors()
 {
-    cout << colors.size() << "\n";
+    std::cout << colors.size() << "\n";
     for (size_t i = 0; i < colors.size(); i++)
     {
-        cout << i << ": " << colors.at(i).getColor() << "---" << colors.at(i).getNumeSquares() << "\n";
+        std::cout << i << ": " << colors.at(i).getColor() << "---" << colors.at(i).getNumeSquares() << "\n";
     }
 }
 
 int main()
 {
-    cout << "weclome to the quilt generator"
-         << "\n";
+    std::cout << "weclome to the quilt generator"
+              << "\n";
     // get user input
     // string s1 = to_string(10);
     // string s2 = to_string(20);
     // string s = s1 + "x" + s2; ;
     // cout << s;
     presetSquaresCauseImlaze();
+    readInPatters();
     userInput();
     // testSquares();
 
@@ -72,6 +82,7 @@ void userInput()
         else if (userIn == 2)
         {
             getSize();
+            // quiltTop quilt();
             break;
         }
         else if (userIn == 3)
@@ -104,13 +115,29 @@ void testSquares()
 
 void presetSquaresCauseImlaze()
 {
-    ColorSquares a(10, "blue");
-    ColorSquares b(20, "yellow");
-    ColorSquares c(15, "red");
-    ColorSquares d(5, "green");
-    ColorSquares e(5, "purple");
-    ColorSquares f(20, "pink");
-    ColorSquares g(30, "magenta");
+    ColorSquares a(9, "a");
+    ColorSquares b(9, "b");
+    ColorSquares c(9, "c");
+    ColorSquares d(9, "d");
+    ColorSquares e(9, "e");
+    ColorSquares f(9, "f");
+    ColorSquares g(9, "g");
+    ColorSquares h(9, "h");
+    ColorSquares i(9, "i");
+    ColorSquares j(9, "j");
+    
+    ColorSquares k(9, "k");
+    ColorSquares l(9, "l");
+    ColorSquares m(9, "m");
+
+    ColorSquares n(9, "n");
+    ColorSquares o(9, "o");
+    ColorSquares p(6, "p");
+
+    ColorSquares q(40, "q");
+    ColorSquares filler(0, "fill");
+
+
     colors.push_back(a);
     colors.push_back(b);
     colors.push_back(c);
@@ -118,6 +145,17 @@ void presetSquaresCauseImlaze()
     colors.push_back(e);
     colors.push_back(f);
     colors.push_back(g);
+    colors.push_back(h);
+    colors.push_back(i);
+    colors.push_back(j);
+    colors.push_back(k);
+    colors.push_back(l);
+    colors.push_back(m);
+    colors.push_back(n);
+    colors.push_back(o);
+    colors.push_back(p);
+    colors.push_back(q);
+    colors.push_back(filler);
 }
 
 void getSize()
@@ -187,5 +225,83 @@ void getSize()
     cin >> height;
     cout << "x\n";
     cin >> width;
+    // declares the quilt object
+    quiltTop quilt(height, width);
+
+    // FOR SOME REASON THIS IS WHERE IM PUTTING ALL THE CODE TO GENERATE THE QUILT. IDK WHY EITHER
+    // this fucntion gets the size of the quilt and the max number of boxes needed
+    quilt.getTotNum();
+    // these get the vectors for squares and patterns into the quilt class
+    quilt.readInSquares(colors);
+    quilt.readInPatterns(patterns);
+    // it took a long tome --- and was a long road--- but this actually generates the quilt top
+    // heavenly light -- angel chorus
+    quilt.generateQuilt();
 }
 
+void readInPatters()
+{
+    string str;
+    // Patterns temp;
+    string name;
+    string totalNum;
+    string len;
+    string width;
+    ifstream file("Patterns.txt");
+    string runTimes;
+    string numColors;
+    getline(file, runTimes);
+    cout << "runtime = " << runTimes << "\n---\n\n";
+    int runT = stoi(runTimes);
+
+    for (size_t i = 0; i < runT; i++)
+    {
+        Patterns temp;
+
+        getline(file, str, '-');
+        cout << str << "\n";
+        temp.setPattern(str);
+
+        getline(file, name, '-');
+        cout << name << "\n";
+        temp.setName(name);
+
+        getline(file, totalNum, '-');
+        cout << totalNum << "\n";
+        temp.setNum(totalNum);
+
+        getline(file, len, 'x');
+        cout << len << "\n";
+        temp.setLength(len);
+
+        getline(file, width, '-');
+        cout << width << "\n";
+        temp.setWidth(width);
+
+        getline(file, numColors);
+        cout << numColors << "\n";
+        temp.setNumColors(numColors);
+
+        // cout << temp.getName() << "\n";
+        // cout << temp.getPatteren();
+        // cout << temp.getNumColors();
+        patterns.push_back(temp);
+
+        // cout << temp.getName() << "      sjfbjdbfsd    ";
+
+        // cout << temp.getName() << "--" << temp.getNum() << "--" << temp.getLength() << "--" << temp.getWidth() <<temp.getPatteren() << "\n";
+    }
+
+    cout << "\n-----------\n";
+
+    for (size_t i = 0; i < patterns.size(); i++)
+    {
+        patterns.at(i).convertToInt();
+        cout << patterns.at(i).getName() << "--" << patterns.at(i).getNum() << "--" << patterns.at(i).getLength() << "--" << patterns.at(i).getWidth() << "--" << patterns.at(i).getNumColors() << " " << patterns.at(i).getPatteren() << "\n";
+    }
+
+    // while (getline(file, str))
+    // {
+    //     cout << str << "\n";
+    // }
+}
